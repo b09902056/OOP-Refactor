@@ -4,16 +4,17 @@
 
 using namespace std;
 
-struct Employee {
+class Employee {
+  private:
     int id;
     string first_name;
     string last_name;
     int boss_id;
+  public:
+    Employee(const int Id = 0, const string FirstName = "", const string LastName = "", const int BossId = 0):
+        id{Id}, first_name{FirstName}, last_name{LastName}, boss_id{BossId} {};
+    int getId() const {return id;};
+    int getBossId() const {return boss_id;};
+    string getFirstName() const {return first_name;};
+    string getLastName() const {return last_name;};
 };
-
-Employee getEmployeeByName(string first_name, string last_name, const vector<Employee> &employeeList);
-
-// check if employee1 is the subordinate of employee2
-bool isSubordinate(Employee employee1, Employee employee2, const vector<Employee> &employeeList);
-
-bool haveSameTopBoss(Employee employee1, Employee employee2, const vector<Employee> &employeeList);
