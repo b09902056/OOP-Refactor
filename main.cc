@@ -49,7 +49,7 @@ int main(void){
                 }
             }
             if (employeeId == employee[id2].id){
-                printf("subordinate\n");
+                cout << "subordinate" << endl;
                 subordinate = true;
             }
         }
@@ -67,7 +67,7 @@ int main(void){
                     }
                 }
                 if (employeeId == employee[id1].id){
-                    printf("supervisor\n");
+                    cout << "supervisor" << endl;
                     supervisor = true;
                 }
             }
@@ -76,9 +76,9 @@ int main(void){
  
         if ((!subordinate) && (!supervisor)){
             if (topBossOfEmployee1 == topBossOfEmployee2)
-                printf("colleague\n");
+                cout << "colleague" << endl;
             else
-                printf("unrelated\n");
+                cout << "unrelated" << endl;
         }
     }
     return 0;
