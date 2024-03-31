@@ -1,3 +1,6 @@
+#ifndef EMPLOYEE_H
+#define EMPLOYEE_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,3 +21,5 @@ class Employee {
     string getFirstName() const {return first_name;};
     string getLastName() const {return last_name;};
 };
+
+#endif

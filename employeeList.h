@@ -1,3 +1,6 @@
+#ifndef EMPLOYEELIST_H
+#define EMPLOYEELIST_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,3 +19,5 @@ class EmployeeList {
     bool isSubordinate(const Employee &employee1, const Employee &employee2) const;
     bool haveSameTopBoss(const Employee &employee1, const Employee &employee2) const;
 };
+
+#endif

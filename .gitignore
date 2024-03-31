@@ -1,7 +1,4 @@
 test.out
 test.sh
 main
-a.out
-main.o
-employee.o
-employeeList.o
+*.o
