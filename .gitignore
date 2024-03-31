@@ -1,4 +1,6 @@
 test.out
 test.sh
 main
-*.o
+main.o
+employeeList.o
+query.o

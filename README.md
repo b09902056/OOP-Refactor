@@ -5,3 +5,5 @@ Refactor a submission to our judge system with all the techniques you have learn
 
 
 ## Problem: 249. Company
+
+![](./graph.jpg)
