@@ -1,8 +1,6 @@
 #ifndef EMPLOYEELIST_H
 #define EMPLOYEELIST_H
 
-#include <iostream>
-#include <string>
 #include <vector>
 #include "employee.h"
 

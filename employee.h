@@ -1,9 +1,7 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
-#include <iostream>
 #include <string>
-#include <vector>
 
 using namespace std;
 

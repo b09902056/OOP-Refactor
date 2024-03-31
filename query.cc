@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "query.h"
-#include "employeeList.h"
 
 using namespace std;
 
@@ -28,6 +26,6 @@ void Query::run(const EmployeeList &employeeList) const
             cout << "unrelated" << endl;
         }
     }
-    
+
     return;
 }
