@@ -1,5 +1,6 @@
 #include <iostream>
-# include <string>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -8,77 +9,90 @@ struct Employee {
     string first_name;
     string last_name;
     int boss_id;
-    int level;
 };
+
+Employee getEmployeeByName(string first_name, string last_name, const vector<Employee> &employeeList){
+    for (const Employee &employee : employeeList){
+        if (first_name == employee.first_name && last_name == employee.last_name){
+            return employee;
+        }
+    }
+    cout << first_name << " " << last_name << " not found.\n";
+    exit(-1);
+}
+Employee getEmployeeById(int id, const vector<Employee> &employeeList){
+    for (const Employee &employee : employeeList){
+        if (id == employee.id){
+            return employee;
+        }
+    }
+    cout << id << " not found.\n";
+    exit(-1);
+}
+
+// check if employee1 is the subordinate of employee2
+bool isSubordinate(Employee employee1, Employee employee2, const vector<Employee> &employeeList){
+    Employee employee = employee1;
+    Employee boss = getEmployeeById(employee.boss_id, employeeList);
+    while (employee.id != boss.id){
+        if (boss.id == employee2.id){
+            return true;
+        }
+        employee = boss;
+        boss = getEmployeeById(employee.boss_id, employeeList);
+    }
+    return false;
+}
+
+Employee getTopBoss(Employee employee, const vector<Employee> &employeeList){
+    Employee boss = getEmployeeById(employee.boss_id, employeeList);
+    while (employee.id != boss.id){
+        employee = boss;
+        boss = getEmployeeById(employee.boss_id, employeeList);
+    }
+    return employee;
+}
+
+bool haveSameTopBoss(Employee employee1, Employee employee2, const vector<Employee> &employeeList){
+    if (getTopBoss(employee1, employeeList).id == getTopBoss(employee2, employeeList).id){
+        return true;
+    }
+    return false;
+}
  
 int main(void){
     int employeeNumber;
     cin >> employeeNumber;
 
-    Employee employee[employeeNumber];
-    for (int i = 0; i < employeeNumber; i++){
-        cin >> employee[i].id >> employee[i].first_name >> employee[i].last_name >> employee[i].boss_id;
+    vector<Employee> employeeList(employeeNumber);
+    for (Employee &employee : employeeList){
+        cin >> employee.id;
+        cin >> employee.first_name;
+        cin >> employee.last_name;
+        cin >> employee.boss_id;
     }
  
     int queryNumber;
     cin >> queryNumber;
 
-    string employee1[2], employee2[2];
-    int id1, id2;
     for (int i = 0; i < queryNumber; i++){
-        cin >> employee1[0] >> employee1[1] >> employee2[0] >> employee2[1];
-        for (int j = 0; j < employeeNumber; j++){
-            if (employee1[0] == employee[j].first_name && employee1[1] == employee[j].last_name){
-                id1 = j;
-            }
-            if (employee2[0] == employee[j].first_name && employee2[1] == employee[j].last_name){
-                id2 = j;
-            }
-        }
+        string first_name1, last_name1, first_name2, last_name2;
+        cin >> first_name1 >> last_name1 >> first_name2 >> last_name2;
+        
+        Employee employee1 = getEmployeeByName(first_name1, last_name1, employeeList);
+        Employee employee2 = getEmployeeByName(first_name2, last_name2, employeeList);
  
-        int employeeId = employee[id1].id;
-        int bossId = employee[id1].boss_id;
-        bool subordinate = false, supervisor = false;
-        int topBossOfEmployee1 = -1, topBossOfEmployee2 = -1;
-        while(bossId != employeeId){
-            for (int j = 0; j < employeeNumber; j++){
-                if(employee[j].id == bossId){
-                    employeeId = bossId;
-                    bossId = employee[j].boss_id;
-                    break;
-                }
-            }
-            if (employeeId == employee[id2].id){
-                cout << "subordinate" << endl;
-                subordinate = true;
-            }
+        if(isSubordinate(employee1, employee2, employeeList)){
+            cout << "subordinate" << endl;
         }
-        topBossOfEmployee1 = employeeId;
-
-        if (!subordinate){
-            employeeId = employee[id2].id;
-            bossId = employee[id2].boss_id;
-            while(bossId != employeeId){
-                for (int j = 0; j < employeeNumber; j++){
-                    if(employee[j].id == bossId){
-                        employeeId = bossId;
-                        bossId = employee[j].boss_id;
-                        break;
-                    }
-                }
-                if (employeeId == employee[id1].id){
-                    cout << "supervisor" << endl;
-                    supervisor = true;
-                }
-            }
-            topBossOfEmployee2 = employeeId;
+        else if (isSubordinate(employee2, employee1, employeeList)){
+            cout << "supervisor" << endl;
         }
- 
-        if ((!subordinate) && (!supervisor)){
-            if (topBossOfEmployee1 == topBossOfEmployee2)
-                cout << "colleague" << endl;
-            else
-                cout << "unrelated" << endl;
+        else if (haveSameTopBoss(employee1, employee2, employeeList)){
+            cout << "colleague" << endl;
+        }
+        else{
+            cout << "unrelated" << endl;
         }
     }
     return 0;
