@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Query::run(const EmployeeList &employeeList) const
+void Query::run(const int queryNumber, const EmployeeList &employeeList) const
 {
     for (int i = 0; i < queryNumber; i++){
         string first_name1, last_name1, first_name2, last_name2;

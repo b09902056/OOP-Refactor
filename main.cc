@@ -13,8 +13,8 @@ int main(void){
     int queryNumber;
     cin >> queryNumber;
 
-    Query query(queryNumber);
-    query.run(employeeList);
+    Query query;
+    query.run(queryNumber, employeeList);
 
     return 0;
 }
